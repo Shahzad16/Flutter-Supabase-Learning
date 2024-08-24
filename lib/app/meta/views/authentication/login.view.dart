@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_supabase_tutorial/app/meta/views/authentication/login.with.phone.view.dart';
 import 'package:flutter_supabase_tutorial/app/routes/app.routes.dart';
 import 'package:flutter_supabase_tutorial/core/notifier/authentication.notifier.dart';
 import 'package:provider/provider.dart';
@@ -55,14 +56,21 @@ class _LoginViewState extends State<LoginView> {
 
                   if (email.isNotEmpty && password.isNotEmpty) {
                     await authenticationNotifier.login(
-                      context: context,
-                        email: email, password: password);
+                        context: context, email: email, password: password);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Fill the credentials')));
                   }
                 },
-                child: const Text("Login")),
+                child: const Text("Login with Email")),
+            SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder:(context)=>LoginWithPhone()));
+                },
+                child: Text('Sign in with Phone Number')),
             const SizedBox(
               height: 30,
             ),
