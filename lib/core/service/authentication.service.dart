@@ -106,4 +106,15 @@ class AuthenticationService {
       ));
     }
   }
+
+  Future loginWithGithub({required BuildContext context}) async {
+    try {
+      await supabase.auth.signInWithOAuth(OAuthProvider.github);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomeView()));
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
 }

@@ -71,6 +71,10 @@ class _LoginViewState extends State<LoginView> {
                   Navigator.push(context, MaterialPageRoute(builder:(context)=>LoginWithPhone()));
                 },
                 child: Text('Sign in with Phone Number')),
+                SizedBox(height: 20,),
+                ElevatedButton(onPressed: (){
+                  authenticationNotifier.loginWithGithub(context: context);
+                }, child: Text('Login with Github')),
             const SizedBox(
               height: 30,
             ),
