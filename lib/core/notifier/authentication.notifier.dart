@@ -54,11 +54,21 @@ class AuthenticationNotifier extends ChangeNotifier {
     return null;
   }
 
-  Future<String?> loginWithGithub({required BuildContext context}) async{
-    try{
+  Future<String?> loginWithGithub({required BuildContext context}) async {
+    try {
       await _authenticationService.loginWithGithub(context: context);
-    }catch(e){
+    } catch (e) {
       print(e);
     }
+    return null;
+  }
+
+  Future<String?> loginWithFacebook({required BuildContext context}) async {
+    try {
+      await _authenticationService.loginWithFacebook(context: context);
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 }
