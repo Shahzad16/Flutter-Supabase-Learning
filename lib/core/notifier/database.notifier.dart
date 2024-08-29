@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_supabase_tutorial/core/models/data.model.dart';
 import 'package:flutter_supabase_tutorial/core/service/database.service.dart';
 
 class DatabaseNotifier extends ChangeNotifier {
-  final DatabaseService _databaseService = new DatabaseService();
+  final DatabaseService _databaseService = DatabaseService();
 
   Future fetchData() async {
-    await _databaseService.fetchData();
+    List data = await _databaseService.fetchData();
+    return data.map((dataElement) => Data.fromJson(dataElement)).toList();
   }
 
   Future insertData(

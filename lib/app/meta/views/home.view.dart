@@ -44,7 +44,30 @@ class HomeView extends StatelessWidget {
                       title: titleController.text,
                       description: descriptionController.text);
                 },
-                child: const Text('Add Data'))
+                child: const Text('Add Data')),
+            Container(
+              height: 100,
+              child: FutureBuilder(
+                  future: databaseNotifier.fetchData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasData) {
+                      List _snapshot = snapshot.data as List;
+                      return ListView.builder(
+                        shrinkWrap: true,
+                          itemCount: _snapshot.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(_snapshot[index].title),
+                              subtitle: Text(_snapshot[index].description),
+                            );
+                          });
+                    }
+                    return const Center(child: CircularProgressIndicator());
+                  }),
+            )
           ],
         ));
   }

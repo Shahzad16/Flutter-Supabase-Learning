@@ -4,8 +4,9 @@ class DatabaseService {
   final supabase = Supabase.instance.client;
   Future fetchData() async {
     try {
-      final response = await supabase.from("test_db").select();
-      print(response);
+      var response = await supabase.from("test_db").select();
+        var data = response;
+        return data;
     } catch (e) {
       print(e.toString());
     }
