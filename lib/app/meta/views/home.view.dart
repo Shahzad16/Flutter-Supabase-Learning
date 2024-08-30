@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget {
                       description: descriptionController.text);
                 },
                 child: const Text('Add Data')),
-            Container(
+            SizedBox(
               height: 100,
               child: FutureBuilder(
                   future: databaseNotifier.fetchData(),
@@ -54,14 +54,64 @@ class HomeView extends StatelessWidget {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.hasData) {
-                      List _snapshot = snapshot.data as List;
+                      List snapShot = snapshot.data as List;
                       return ListView.builder(
-                        shrinkWrap: true,
-                          itemCount: _snapshot.length,
+                          shrinkWrap: true,
+                          itemCount: snapShot.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              title: Text(_snapshot[index].title),
-                              subtitle: Text(_snapshot[index].description),
+                              title: Text(snapShot[index].title),
+                              subtitle: Text(snapShot[index].description),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.edit),
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: const Text('Edit Data'),
+                                          content: Column(
+                                            children: [
+                                              TextField(
+                                                controller: titleController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        hintText: 'title'),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              TextField(
+                                                controller:
+                                                    descriptionController,
+                                                decoration:
+                                                    const InputDecoration(
+                                                        hintText:
+                                                            'description'),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              ElevatedButton(
+                                                  onPressed: () {
+                                                    databaseNotifier.updateData(
+                                                        // we can get the id from the snapshot so we don't need to
+                                                        // pass the id from the UI
+                                                        id: snapShot[index].id,
+                                                        title: titleController
+                                                            .text,
+                                                        description:
+                                                            descriptionController
+                                                                .text);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text('Update'))
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                },
+                              ),
                             );
                           });
                     }

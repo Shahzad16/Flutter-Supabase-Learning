@@ -5,8 +5,8 @@ class DatabaseService {
   Future fetchData() async {
     try {
       var response = await supabase.from("test_db").select();
-        var data = response;
-        return data;
+      var data = response;
+      return data;
     } catch (e) {
       print(e.toString());
     }
@@ -27,4 +27,20 @@ class DatabaseService {
       print(e.toString());
     }
   }
+
+  Future updateData(
+      {required int id, String? title, String? description}) async {
+    try {
+      final response=await supabase
+          .from('test_db')
+          .update({'title': title, 'description': description})
+          .eq('id', id)
+          .select(); // update & return the updated data
+      print(response);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  // TODO: Delete Data
 }

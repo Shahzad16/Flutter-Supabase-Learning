@@ -14,4 +14,10 @@ class DatabaseNotifier extends ChangeNotifier {
       {required String title, required String description}) async {
     await _databaseService.insertData(title: title, description: description);
   }
+
+  Future updateData(
+      {required int id, String? title, String? description}) async {
+    await _databaseService.updateData(
+        id: id, title: title, description: description);
+  }
 }
