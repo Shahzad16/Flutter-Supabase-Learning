@@ -20,4 +20,8 @@ class DatabaseNotifier extends ChangeNotifier {
     await _databaseService.updateData(
         id: id, title: title, description: description);
   }
+
+  Future deleteData({required int id}) async {
+    await _databaseService.deleteData(id: id);
+  }
 }

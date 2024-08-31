@@ -62,55 +62,73 @@ class HomeView extends StatelessWidget {
                             return ListTile(
                               title: Text(snapShot[index].title),
                               subtitle: Text(snapShot[index].description),
-                              trailing: IconButton(
-                                icon: const Icon(Icons.edit),
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          title: const Text('Edit Data'),
-                                          content: Column(
-                                            children: [
-                                              TextField(
-                                                controller: titleController,
-                                                decoration:
-                                                    const InputDecoration(
-                                                        hintText: 'title'),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              TextField(
-                                                controller:
-                                                    descriptionController,
-                                                decoration:
-                                                    const InputDecoration(
-                                                        hintText:
-                                                            'description'),
-                                              ),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              ElevatedButton(
-                                                  onPressed: () {
-                                                    databaseNotifier.updateData(
-                                                        // we can get the id from the snapshot so we don't need to
-                                                        // pass the id from the UI
-                                                        id: snapShot[index].id,
-                                                        title: titleController
-                                                            .text,
-                                                        description:
-                                                            descriptionController
-                                                                .text);
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text('Update'))
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                },
+                              trailing: Container(width:100,
+                                child: Row(
+                                  children: [
+                                    IconButton(
+                                        onPressed: () {
+                                          databaseNotifier.deleteData(
+                                              id: snapShot[index].id);
+                                        },
+                                        icon: const Icon(
+                                            Icons.delete_forever_outlined)),
+                                    IconButton(
+                                      icon: const Icon(Icons.edit),
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                title: const Text('Edit Data'),
+                                                content: Column(
+                                                  children: [
+                                                    TextField(
+                                                      controller: titleController,
+                                                      decoration:
+                                                          const InputDecoration(
+                                                              hintText: 'title'),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    TextField(
+                                                      controller:
+                                                          descriptionController,
+                                                      decoration:
+                                                          const InputDecoration(
+                                                              hintText:
+                                                                  'description'),
+                                                    ),
+                                                    const SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    ElevatedButton(
+                                                        onPressed: () {
+                                                          databaseNotifier
+                                                              .updateData(
+                                                                  // we can get the id from the snapshot so we don't need to
+                                                                  // pass the id from the UI
+                                                                  id: snapShot[
+                                                                          index]
+                                                                      .id,
+                                                                  title:
+                                                                      titleController
+                                                                          .text,
+                                                                  description:
+                                                                      descriptionController
+                                                                          .text);
+                                                          Navigator.pop(context);
+                                                        },
+                                                        child:
+                                                            const Text('Update'))
+                                                  ],
+                                                ),
+                                              );
+                                            });
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           });

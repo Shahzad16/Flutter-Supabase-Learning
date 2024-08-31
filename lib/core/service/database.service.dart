@@ -31,7 +31,7 @@ class DatabaseService {
   Future updateData(
       {required int id, String? title, String? description}) async {
     try {
-      final response=await supabase
+      final response = await supabase
           .from('test_db')
           .update({'title': title, 'description': description})
           .eq('id', id)
@@ -42,5 +42,12 @@ class DatabaseService {
     }
   }
 
-  // TODO: Delete Data
+  Future deleteData({required int id}) async {
+    try {
+      final response = await supabase.from("test_db").delete().eq('id', id);
+      print(response);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
